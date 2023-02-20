@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.nowon.mapper.BoardMapper">
+	<!-- 메서드이름과 id명 일치해야함 -->
+	<insert id="save">
+	insert into board(title, content, writer)
+	values(#{title},#{content},#{writer})
+	</insert>
+	
+	<select id="findAll" resultType="com.green.nowon.domain.entity.BoardDTO">
+	select * from board
+	<where>
+		<if test="target != null">
+		 ${target} like '%${search}%'
+		</if>
+		<!-- if문 세개 다 null이면 오류 기선님꺼 2차 프로젝트 참고 doc dynamic sql 참고-->
+	</where>
+	order by no desc
+	</select>
+</mapper>
